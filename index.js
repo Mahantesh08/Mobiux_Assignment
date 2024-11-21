@@ -52,22 +52,6 @@ function totalSales(data) {
             revenue > max.revenue ? { sku, revenue } : max, { sku: null, revenue: 0 });
     }
 
-    // For most popular items -> min, max, and average orders
-    const statsForMostPopular = {};
-    for (const month in mostPopularItems) {
-        const sku = mostPopularByMonth[month].sku;
-        const quantities = rows
-            .filter(row => row.month === month && row.sku === sku)
-            .map(row => row.quantity);
-
-        const total = quantities.reduce((sum, qty) => sum + qty, 0);
-        const min = Math.min(...quantities);
-        const max = Math.max(...quantities);
-        const avg = total / quantities.length;
-
-        statsForMostPopular[month] = { sku, min, max, avg };
-    }
-
     return {
         totalStoreSales,
         monthWiseSales,
@@ -82,4 +66,3 @@ console.log('Total Sales of the Store:', results.totalStoreSales);
 console.log('Month-wise Sales Totals:', results.monthWiseSales);
 console.log('Most Popular Item by Month:', results.mostPopularByMonth);
 console.log('Most Revenue-Generating Item by Month:', results.mostRevenueByMonth);
-console.log('Stats for Most Popular Item:', results.statsForMostPopular);
